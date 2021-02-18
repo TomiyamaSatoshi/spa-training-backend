@@ -1,0 +1,28 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="training.spa.api.dao.ArticleDao">
+	<select id="selectAll" resultType="training.spa.api.domain.Article">
+		SELECT * FROM articles ORDER BY created_at DESC
+	</select>
+	<select id="select" resultType="training.spa.api.domain.Article">
+		SELECT * FROM articles WHERE article_id = #{articleId}
+	</select>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="articleId">
+		INSERT INTO articles
+		(article_title, article_content, nice_count, picture_url, created_by)
+		VALUES
+		(#{articleTitle}, #{articleContent}, #{niceCount}, #{pictureUrl}, #{createdBy})
+	</insert>
+	<update id="update" useGeneratedKeys="true" keyProperty="articleId">
+		UPDATE articles SET
+		article_title = #{articleTitle},
+		article_content = #{articleContent},
+		nice_count = #{niceCount},
+		picture_url = #{pictureUrl},
+		created_by = #{createdBy}
+		WHERE article_id = #{articleId}
+	</update>
+	<delete id="delete">
+		DELETE FROM articles WHERE article_id = #{articleId}
+	</delete>
+</mapper>
