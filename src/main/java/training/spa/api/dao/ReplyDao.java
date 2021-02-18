@@ -16,5 +16,7 @@ public interface ReplyDao {
 	void insert(Reply reply);
 	void update(Reply reply);
 	void delete(Reply reply);
+	
+	List<Reply> selectByArticleId(int articleId);
 
 }

@@ -24,4 +24,8 @@
 	<delete id="delete">
 		DELETE FROM replies WHERE reply_id = #{replyId}
 	</delete>
+	
+	<select id="selectByArticleId" resultType="training.spa.api.domain.Reply">
+		SELECT * FROM replies WHERE article_id = #{articleId} ORDER BY created_at DESC
+	</select>
 </mapper>
