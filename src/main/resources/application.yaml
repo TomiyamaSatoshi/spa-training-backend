@@ -3,3 +3,11 @@ spring:
     url: jdbc:mysql://localhost:3306/training?training=true&zeroDataTimeBehavior=convertToNull&autoReconnect=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=JST
     username: training
     password: training
+logging:
+  level:
+    org:
+      springframework: WARN
+    training:
+      spa:
+        api:
+          dao: DEBUG

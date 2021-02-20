@@ -15,5 +15,7 @@ public class Article {
 	private String createdBy;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	
+	public Article() {}
 
 }
