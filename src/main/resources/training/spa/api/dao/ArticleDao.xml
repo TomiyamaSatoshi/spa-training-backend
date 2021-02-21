@@ -2,10 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="training.spa.api.dao.ArticleDao">
 	<select id="selectAll" resultType="training.spa.api.domain.Article">
-		SELECT * FROM articles ORDER BY created_at DESC
+		SELECT 
+			article_id AS articleId
+			, article_title AS articleTitle
+			, article_content AS articleContent
+			, nice_count AS niceCount
+			, picture_url AS pictureUrl
+			, created_by AS createdBy
+			, created_at AS createdAt
+			, updated_at AS updatedAt
+		FROM articles ORDER BY created_at DESC
 	</select>
 	<select id="select" resultType="training.spa.api.domain.Article">
-		SELECT * FROM articles WHERE article_id = #{articleId}
+		SELECT
+			article_id AS articleId
+			, article_title AS articleTitle
+			, article_content AS articleContent
+			, nice_count AS niceCount
+			, picture_url AS pictureUrl
+			, created_by AS createdBy
+			, created_at AS createdAt
+			, updated_at AS updatedAt
+		FROM articles WHERE article_id = #{articleId}
 	</select>
 	<insert id="insert" useGeneratedKeys="true" keyProperty="articleId">
 		INSERT INTO articles
@@ -27,7 +45,16 @@
 	</delete>
 	
 	<select id="selectLatest" resultType="training.spa.api.domain.Article">
-		SELECT * FROM articles ORDER BY created_at DESC LIMIT #{limit} OFFSET #{offset};
+		SELECT
+			article_id AS articleId
+			, article_title AS articleTitle
+			, article_content AS articleContent
+			, nice_count AS niceCount
+			, picture_url AS pictureUrl
+			, created_by AS createdBy
+			, created_at AS createdAt
+			, updated_at AS updatedAt
+		FROM articles ORDER BY created_at DESC LIMIT #{limit} OFFSET #{offset};
 	</select>
 	<select id="count" resultType="training.spa.api.domain.ArticleCount">
 		SELECT COUNT(*) AS 'count' FROM articles;

@@ -2,10 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="training.spa.api.dao.ReplyDao">
 	<select id="selectAll" resultType="training.spa.api.domain.Reply">
-		SELECT * FROM replies ORDER BY reply_datetime DESC
+		SELECT
+			reply_id AS replyId
+    		, article_id AS articleId
+		    , reply_content AS replyContent
+		    , picture_url AS pictureUrl
+		    , created_by AS createdBy
+		    , created_at AS createdAt
+		    , updated_at AS updatedAt
+		FROM replies ORDER BY reply_datetime DESC
 	</select>
 	<select id="select" resultType="training.spa.api.domain.Reply">
-		SELECT * FROM replies WHERE reply_id = #{replyId}
+		SELECT
+			reply_id AS replyId
+    		, article_id AS articleId
+		    , reply_content AS replyContent
+		    , picture_url AS pictureUrl
+		    , created_by AS createdBy
+		    , created_at AS createdAt
+		    , updated_at AS updatedAt
+		FROM replies WHERE reply_id = #{replyId}
 	</select>
 	<insert id="insert" useGeneratedKeys="true" keyProperty="replyId">
 		INSERT INTO replies
@@ -26,6 +42,14 @@
 	</delete>
 	
 	<select id="selectByArticleId" resultType="training.spa.api.domain.Reply">
-		SELECT * FROM replies WHERE article_id = #{articleId} ORDER BY created_at DESC
+		SELECT
+			reply_id AS replyId
+    		, article_id AS articleId
+		    , reply_content AS replyContent
+		    , picture_url AS pictureUrl
+		    , created_by AS createdBy
+		    , created_at AS createdAt
+		    , updated_at AS updatedAt
+		FROM replies WHERE article_id = #{articleId} ORDER BY created_at DESC
 	</select>
 </mapper>
