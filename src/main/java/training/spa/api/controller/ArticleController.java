@@ -2,6 +2,8 @@ package training.spa.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import training.spa.api.domain.ArticleSearchCondition;
+import training.spa.api.exception.ApplicationErrorException;
 import training.spa.api.service.ArticleService;
 import training.spa.api.domain.Article;
 import training.spa.api.domain.ArticleCount;
@@ -23,7 +26,7 @@ import training.spa.api.domain.ArticleInfo;
 @RestController
 @CrossOrigin
 @RequestMapping("/article")
-public class ArticleController {
+public class ArticleController extends ControllerBase{
 
 	@Autowired
 	private ArticleService articleService;
@@ -39,11 +42,14 @@ public class ArticleController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public Article insertArticle(@RequestBody @Validated Article article, BindingResult bindingResult) {
+	public Article insertArticle(@RequestBody @Valid Article article, BindingResult bindingResult) throws ApplicationErrorException {
 		
-		for (ObjectError error : bindingResult.getAllErrors()) {
-			System.out.println(error.getDefaultMessage());
-		}
+//		for (ObjectError error : bindingResult.getAllErrors()) {
+//			System.out.println(error.getDefaultMessage());
+//		}
+		
+		// バリデーションエラーがあれば例外をThrowする
+		validate("insertArticle", bindingResult.getAllErrors());
 		
 		articleService.insertArticle(article);
 		return articleService.selectArticle(article.getArticleId());
