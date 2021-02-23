@@ -3,6 +3,8 @@ package training.spa.api.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +13,15 @@ import training.spa.api.dao.ArticleDao;
 import training.spa.api.dao.ReplyDao;
 import training.spa.api.domain.ArticleSearchCondition;
 import training.spa.api.domain.Reply;
+import training.spa.api.exception.ApplicationErrorException;
 import training.spa.api.domain.Article;
 import training.spa.api.domain.ArticleCount;
 import training.spa.api.domain.ArticleInfo;
 
 @Service
 public class ArticleService {
+	
+	protected final static Logger logger = LoggerFactory.getLogger(ArticleService.class);
 
 	@Autowired
 	private ArticleDao articleDao;
@@ -55,8 +60,15 @@ public class ArticleService {
 	
 	// 投稿を追加登録する
 	@Transactional
-	public void insertArticle(Article article) {
-		articleDao.insert(article);
+	public void insertArticle(Article article) throws ApplicationErrorException{
+		try {
+			articleDao.insert(article);
+		} catch (Exception e) {
+			ApplicationErrorException applicationErrorException = new ApplicationErrorException("E001", "inserArticle", "Insert Article failled.");
+			applicationErrorException.initCause(e);
+			logger.error(applicationErrorException.toString() + " " + article.toString());
+			throw applicationErrorException;
+		}
 	}
 	
 	// 投稿を更新する
@@ -71,7 +83,14 @@ public class ArticleService {
 	
 	// 返信の追加登録する
 	@Transactional
-	public void insertReply(Reply reply) {
-		replyDao.insert(reply);
+	public void insertReply(Reply reply) throws ApplicationErrorException{
+		try {
+			replyDao.insert(reply);
+		} catch (Exception e) {
+			ApplicationErrorException applicationErrorException = new ApplicationErrorException("E002", "inserReply", "Insert Reply failled.");
+			applicationErrorException.initCause(e);
+			logger.error(applicationErrorException.toString() + " " + reply.toString());
+			throw applicationErrorException;
+		}
 	}
 }

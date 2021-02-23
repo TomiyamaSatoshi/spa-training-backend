@@ -26,7 +26,7 @@
 		FROM articles WHERE article_id = #{articleId}
 	</select>
 	<insert id="insert" useGeneratedKeys="true" keyProperty="articleId">
-		INSERT INTO article
+		INSERT INTO articles
 		(article_title, article_content, nice_count, picture_url, created_by)
 		VALUES
 		(#{articleTitle}, #{articleContent}, #{niceCount}, #{pictureUrl}, #{createdBy})
