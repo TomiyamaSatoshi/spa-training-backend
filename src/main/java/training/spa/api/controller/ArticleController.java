@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import training.spa.api.domain.ArticleSearchCondition;
 import training.spa.api.exception.ApplicationErrorException;
 import training.spa.api.service.ArticleService;
@@ -38,16 +39,19 @@ public class ArticleController extends ControllerBase{
 	@Autowired
 	private AuthService authService;
 	
+	@ApiOperation(value = "投稿の一覧を取得します", notes = "ページ切り替え機能用として、offsetとlimitをパラメータ指定します")
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public List<ArticleInfo> getArticles(ArticleSearchCondition articleSearchCondition) {
 		return articleService.getLatestArticle(articleSearchCondition);
 	}
 	
+	@ApiOperation(value = "指定した投稿とその返信リストを取得します", notes = "パラメータを指定したArticleIdの投稿とその返信リストを取得します")
 	@RequestMapping(value="/{articleId}", method = RequestMethod.GET)
 	public ArticleInfo getArticle(@PathVariable int articleId) {
 		return articleService.selectArticle(articleId);
 	}
 	
+	@ApiOperation(value = "投稿を追加登録します", notes = "投稿を追加登録します。認証が必要です。")
 	@AuthGuard
 	@RequestMapping(method = RequestMethod.POST)
 	public Article insertArticle(@RequestHeader("Authorization") String authorization,
@@ -69,6 +73,7 @@ public class ArticleController extends ControllerBase{
 		return articleService.selectArticle(article.getArticleId());
 	}
 	
+	@ApiOperation(value = "いいねの回数をカウントアップします", notes = "パラメータで指定したArticleIdの投稿のいいねの回数をカウントアップします")
 	@RequestMapping(value="/nice", method = {RequestMethod.GET, RequestMethod.POST})
 	public Article incrementNice(@RequestParam("articleId") int articleId) {
 		Article article = articleService.selectArticle(articleId);
@@ -79,6 +84,7 @@ public class ArticleController extends ControllerBase{
 		return article;
 	}
 	
+	@ApiOperation(value = "投稿の総件数を取得します", notes = "投稿の総件数を取得します")
 	@RequestMapping(value="/count", method = RequestMethod.GET)
 	public ArticleCount count() {
 		return articleService.countArticle();

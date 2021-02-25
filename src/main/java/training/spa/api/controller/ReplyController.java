@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import training.spa.api.annotation.AuthGuard;
 import training.spa.api.domain.Reply;
 import training.spa.api.exception.ApplicationErrorException;
@@ -31,6 +32,7 @@ public class ReplyController extends ControllerBase {
 	@Autowired
 	private AuthService authService;
 	
+	@ApiOperation(value = "返信を登録します", notes = "返信を登録します。認証が必要です。")
 	@AuthGuard
 	@RequestMapping(method = RequestMethod.POST)
 	public Reply insertReply(@RequestHeader("Authorization") String authorization,
