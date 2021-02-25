@@ -11,3 +11,6 @@ logging:
       spa:
         api:
           dao: DEBUG
+
+oauth2:
+ clientid: xxxx

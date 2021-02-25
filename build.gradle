@@ -25,9 +25,11 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-validation:2.4.2"
 	compile 'org.springframework.boot:spring-boot-starter-aop'
 	compile 'org.projectlombok:lombok'
+	compile 'com.google.apis:google-api-services-oauth2:v1-rev149-1.25.0'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	annotationProcessor 'org.projectlombok:lombok'
 }
 
 test {

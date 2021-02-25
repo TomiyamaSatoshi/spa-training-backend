@@ -25,7 +25,10 @@ public class ApplicationErrorExceptionHandler extends ResponseEntityExceptionHan
 		} else if (e.getErrorCode().startsWith("V")) {
 			// バリデーションエラー
 			return ErrorResponse.createResponse(e, HttpStatus.BAD_REQUEST);
-		} else {
+		} else if (e.getErrorCode().startsWith("A")) {
+			// 認証エラー
+			return ErrorResponse.createResponse(e, HttpStatus.UNAUTHORIZED);
+		}else {
 			return ErrorResponse.createResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
